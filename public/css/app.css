@@ -27,7 +27,7 @@ body{
     margin-bottom: 4px;
     font-size: 20px;
     border-radius: 5px;
-    display: block;
+    display: none;
 }
 #checkin{
     background-color: rgb(235, 241, 236);
@@ -59,7 +59,7 @@ body{
 #alll{
     background-color: aliceblue;
     padding: 4px;
-    display: block;
+    display: none;
 }
 .rooms{
     display: flex;
@@ -149,7 +149,7 @@ h3{
     font-weight: 200;
 }
 #grid{
-    display: block;
+    display: none;
     /* display: grid; */
     /* grid-template-columns: repeat(2, 1fr); */
     gap: 5rem;
@@ -192,7 +192,7 @@ h3{
 
 }
 #atlast{
-    display: block;
+    display: none;
     background-color: aliceblue;
     margin-top: 0%;
     padding: 1px;
