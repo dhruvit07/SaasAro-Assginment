@@ -60,7 +60,7 @@ class Booking extends Model
         'check_out' => 'date',
     ];
 
-    public function room()
+    public function rooms()
     {
         return $this->belongsToMany(Room::class,'booking_room','booking_id','room_id');
     }
