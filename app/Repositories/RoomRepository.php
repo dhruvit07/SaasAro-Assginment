@@ -8,26 +8,41 @@ use App\Models\Booking;
 
 class RoomRepository
 {
-    public function getAvailableRooms($checkInDate, $checkOutDate)
+    public function getRoomCategoriesWithAvailableRoomCount($checkInDate, $checkOutDate)
     {
-        $bookings = Booking::where('check_in', '<=', $checkInDate)
-            ->where('check_out', '>=', $checkOutDate)
-            ->get();
+        $bookings = Booking::where('check_in', '<=', $checkOutDate)
+                            ->where('check_out', '>=', $checkInDate)
+                            ->get();
 
         $bookedRooms = $bookings->map(function ($booking) {
-            return $booking->room;
+            return $booking->rooms;
         });
 
-        $availableRooms = Room::whereNotIn('id', $bookedRooms->pluck('id'))
-                                ->orderBy('room_category_id')
-                                ->get();
-
-        return $availableRooms;
+        return RoomCategory::withCount([
+            'rooms as available_rooms' => function ($query) use ($bookedRooms) {
+                $query->whereNotIn('id', $bookedRooms->flatten()->pluck('id'));
+            }
+        ])->get();
     }
-
-    public function getRoomCategories()
+    public function RoomCategoriesWithAvailableRoomCriteria($checkInDate, $checkOutDate)
     {
-        return RoomCategory::all();
+        $bookings = Booking::where('check_in', '<=', $checkOutDate)
+                            ->where('check_out', '>=', $checkInDate)
+                            ->get();
+
+        $bookedRooms = $bookings->map(function ($booking) {
+            return $booking->rooms;
+        });
+
+        return RoomCategory::with([
+            'rooms' => function ($query) use ($bookedRooms) {
+                $query->whereNotIn('id', $bookedRooms->flatten()->pluck('id'));
+            }
+        ]);
     }
 
+    public function getRoomCategoriesByIds($ids)
+    {
+        return RoomCategory::whereIn('id', $ids)->get();
+    }
 }

@@ -24,6 +24,7 @@ class Booking extends Model
         'gross_price' => 'required|double',
         'check_in' => 'required|date',
         'check_out' => 'required|date',
+        'notes' => 'nullable|string'
     ];
 
     protected $fillable = [
@@ -41,6 +42,7 @@ class Booking extends Model
         'gross_price',
         'check_in',
         'check_out',
+        'notes'
     ];
 
     protected $casts = [
@@ -58,6 +60,7 @@ class Booking extends Model
         'gross_price' => 'double',
         'check_in' => 'date',
         'check_out' => 'date',
+        'notes' => 'string'
     ];
 
     public function rooms()

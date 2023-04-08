@@ -29,6 +29,7 @@ class CreateBookingsTable extends Migration
             $table->double('gross_price');
             $table->date('check_in');
             $table->date('check_out');
+            $table->text('notes')->nullable();
             $table->timestamps();
 
             $table->foreign('booking_status_id')->references('id')->on('booking_statuses');
